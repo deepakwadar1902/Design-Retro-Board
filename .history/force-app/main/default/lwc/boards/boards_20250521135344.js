@@ -52,7 +52,7 @@ export default class Boards extends LightningElement {
             let result = await saveBoard({'board': fields, 'sections': sectionList});
             this.showToast('Data Saved Successfully..');
             //this.popupCloseHandler();
-            //setTimeout(() => this.popupCloseHandler(), 500);
+            setTimeout(() => this.popupCloseHandler(), 500);
             console.log('Test 6');
         
     }
@@ -81,7 +81,6 @@ export default class Boards extends LightningElement {
                 variant
             });
             this.dispatchEvent(event);
-        }        
-}
-
+        }
+} 
 

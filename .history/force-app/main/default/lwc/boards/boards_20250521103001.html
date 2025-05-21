@@ -22,8 +22,7 @@
                         <lightning-input-field field-name={noOfSectionsField} onchange={noOfSectionsChangeHandler}>
                         </lightning-input-field>
                         <template for:each={sections} for:item="item">
-                            <lightning-input key={item.id} label={item.sectionLabel} required
-                                data-section-control="true"></lightning-input>
+                            <lightning-input key={item.id} label={item.sectionLabel} required></lightning-input>
                         </template>
                         <div class="slds-var-m-top_medium">
                             <lightning-button variant="brand" type="submit" label="Save">

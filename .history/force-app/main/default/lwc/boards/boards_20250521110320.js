@@ -6,7 +6,6 @@ import BOARD_OBJECT from '@salesforce/schema/Board__c';
 import NAME_FIELD from '@salesforce/schema/Board__c.Name';
 import DESCRIPTION_FIELD from '@salesforce/schema/Board__c.Description__c';
 import NOOFSECTIONS_FIELD from '@salesforce/schema/Board__c.NoOfSections__c';
-import saveBoard from '@salesforce/apex/BoardController.saveBoard';
 
 export default class Boards extends LightningElement {
 
@@ -36,7 +35,7 @@ export default class Boards extends LightningElement {
         }
     }
 
-    async handleSubmit(event){
+    handleSubmit(event){
         event.preventDefault();
         const fields = {...event.detail.fields};
         let sectionControls = this.template.querySelectorAll('[data-section-control]');
@@ -44,44 +43,32 @@ export default class Boards extends LightningElement {
 
         for(let control of sectionControls){
             sectionList.push({ name: control.value});
-            console.log('Test 5');
-        }
+
             if(!this.validateData(fields, sectionList)){
                 return;
             }
-            let result = await saveBoard({'board': fields, 'sections': sectionList});
-            this.showToast('Data Saved Successfully..');
-            //this.popupCloseHandler();
-            //setTimeout(() => this.popupCloseHandler(), 500);
-            console.log('Test 6');
-        
+        }
     }
 
         validateData(fields, sectionList){
-            let sectionCount = parseInt(fields.NoOfSections__c);
-            console.log('Test 1');
+            let sectionCount = parseInt(fields.noOfSections__c);
             if(!sectionCount || sectionCount <1 || sectionCount >10){
                 this.showToast('Please enter valid number of sections value between 1 to 10', 'Error', 'error');
                 return false;
-                console.log('Test 2');
             }
             if(sectionList.filter(a => a.Name == '').length > 0){
                 this.showToast('Please enter title for every section.', 'Error', 'error');
                 return false;
-                console.log('Test 2');
             }
             return true;
         }
 
-        showToast(message, title='Success', variant='success'){
-            console.log('Dispatching Toast:', { title, message, variant }); // Debug log
+        showToast(message, title='success', variant='success'){
             const event = new ShowToastEvent({
                 title,
                 message,
                 variant
             });
             this.dispatchEvent(event);
-        }        
-}
-
-
+        }
+}  
