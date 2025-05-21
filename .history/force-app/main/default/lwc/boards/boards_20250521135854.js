@@ -81,7 +81,9 @@ export default class Boards extends LightningElement {
                 variant
             });
             this.dispatchEvent(event);
-        }        
+        }
+        testToastHandler() {
+    this.showToast('Test Toast Message', 'Test Title', 'info');
 }
-
+} 
 

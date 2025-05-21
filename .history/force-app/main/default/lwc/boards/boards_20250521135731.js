@@ -81,7 +81,6 @@ export default class Boards extends LightningElement {
                 variant
             });
             this.dispatchEvent(event);
-        }        
-}
-
+        }
+} 
 
