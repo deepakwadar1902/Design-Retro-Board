@@ -9,8 +9,6 @@ import NOOFSECTIONS_FIELD from '@salesforce/schema/Board__c.NoOfSections__c';
 import saveBoard from '@salesforce/apex/BoardController.saveBoard';
 import getBoards from '@salesforce/apex/BoardController.getBoards';
 
-import {NavigationMixin} from 'lightning/navigation';
-
 const COLUMNS = [
     {label: 'Name', fieldName: 'Name'},
     {label: 'Description', fieldName: 'Description__c'},
@@ -24,7 +22,7 @@ const COLUMNS = [
         }
     }
 ]
-export default class Boards extends NavigationMixin(LightningElement) {
+export default class Boards extends LightningElement {
 
     showModalPopup = false;
     objectApiName = BOARD_OBJECT;   //Board__c its not good practice to use it
@@ -80,9 +78,8 @@ export default class Boards extends NavigationMixin(LightningElement) {
                 return;
             }
             let result = await saveBoard({'board': fields, 'sections': sectionList});
-            this.navigateToBoardRecordPage(result);
-            this.popupCloseHandler();
             this.showToast('Data Saved Successfully..');
+            this.popupCloseHandler();
             //setTimeout(() => this.popupCloseHandler(), 500);
             console.log('Test 6');
         
@@ -104,23 +101,12 @@ export default class Boards extends NavigationMixin(LightningElement) {
             return true;
         }
 
-        rowActionHandler(event){
+        rowActionHanler(event){
             let boardId = event.detail.row.Id;
             const actionName = event.detail.action.name;
             if(actionName == 'openBoard'){
-                this.navigateToBoardRecordPage(boardId);
+                
             }
-        }
-
-        navigateToBoardRecordPage(boardId){
-            this[NavigationMixin.Navigate]({            //used to redirect any record page, url etc
-                type:'standard__recordPage',
-                attributes:{
-                    recordId: boardId,
-                    objectApiName: BOARD_OBJECT,
-                    actionName: 'view'
-                }
-            })
         }
 
         showToast(message, title='Success', variant='success'){

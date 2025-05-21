@@ -9,7 +9,7 @@ import NOOFSECTIONS_FIELD from '@salesforce/schema/Board__c.NoOfSections__c';
 import saveBoard from '@salesforce/apex/BoardController.saveBoard';
 import getBoards from '@salesforce/apex/BoardController.getBoards';
 
-import {NavigationMixin} from 'lightning/navigation';
+import {NavigationMixin} from '@lightning/navigation';
 
 const COLUMNS = [
     {label: 'Name', fieldName: 'Name'},
