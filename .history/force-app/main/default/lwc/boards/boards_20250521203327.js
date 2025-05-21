@@ -9,7 +9,7 @@ import NOOFSECTIONS_FIELD from '@salesforce/schema/Board__c.NoOfSections__c';
 import saveBoard from '@salesforce/apex/BoardController.saveBoard';
 import getBoards from '@salesforce/apex/BoardController.getBoards';
 
-import {NavigationMixin} from 'lightning/navigation';
+import {NavigationMixin} from '@lightning/navigation';
 
 const COLUMNS = [
     {label: 'Name', fieldName: 'Name'},
@@ -80,10 +80,10 @@ export default class Boards extends NavigationMixin(LightningElement) {
                 return;
             }
             let result = await saveBoard({'board': fields, 'sections': sectionList});
-            this.navigateToBoardRecordPage(result);
-            this.popupCloseHandler();
             this.showToast('Data Saved Successfully..');
+            this.popupCloseHandler();
             //setTimeout(() => this.popupCloseHandler(), 500);
+            this.navigateToBoardRecordPage(result);
             console.log('Test 6');
         
     }
