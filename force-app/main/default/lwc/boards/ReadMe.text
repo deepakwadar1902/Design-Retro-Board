@@ -1,0 +1,4 @@
+//Lightning-edit-form - out box comp
+- it will post data into SF provided object
+- one record at time in single object
+- Want to save data into multiple object we can't use this functionality
