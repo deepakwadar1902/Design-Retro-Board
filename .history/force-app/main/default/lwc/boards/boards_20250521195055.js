@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement } from 'lwc';
 import { ShowToastEvent} from 'lightning/platformShowToastEvent';
 //Access object for lightning-edit-form
 import BOARD_OBJECT from '@salesforce/schema/Board__c';
@@ -9,19 +9,6 @@ import NOOFSECTIONS_FIELD from '@salesforce/schema/Board__c.NoOfSections__c';
 import saveBoard from '@salesforce/apex/BoardController.saveBoard';
 import getBoards from '@salesforce/apex/BoardController.getBoards';
 
-const COLUMNS = [
-    {label: 'Name', fieldName: 'Name'},
-    {label: 'Description', fieldName: 'Description__c'},
-    {label: 'No Of Sections', fieldName: 'NoOfSections__c'},
-    {
-        type:"button",typeAttributes:{
-            label:'Open Board',
-            name:'openBoard',
-            title:'Open Board',
-            value:'openBoard'
-        }
-    }
-]
 export default class Boards extends LightningElement {
 
     showModalPopup = false;
@@ -29,22 +16,8 @@ export default class Boards extends LightningElement {
     nameField = NAME_FIELD;
     descriptionField = DESCRIPTION_FIELD;
     noOfSectionsField = NOOFSECTIONS_FIELD;
-    columns = COLUMNS;
 
     sections = [];
-
-    //wired property 
-    @wire(getBoards)           //reactive property - '$propName'
-    boards;
-
-    //boards.date
-
-    //wired method
-    /*
-    @wire(getBoards, {recordId: propName})
-    wiredGetBoards(result){
-
-    }*/
 
     newBoardClickHandler(){
         this.showModalPopup = true;
