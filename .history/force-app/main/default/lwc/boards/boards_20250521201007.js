@@ -14,11 +14,12 @@ const COLUMNS = [
     {label: 'Description', fieldName: 'Description__c'},
     {label: 'No Of Sections', fieldName: 'NoOfSections__c'},
     {
-        type:"button",typeAttributes:{
+        type=:"button",typeAttribute:{
             label:'Open Board',
             name:'openBoard',
             title:'Open Board',
-            value:'openBoard'
+            disabled:false,
+            iconName:'utility:new_window''
         }
     }
 ]
@@ -29,7 +30,6 @@ export default class Boards extends LightningElement {
     nameField = NAME_FIELD;
     descriptionField = DESCRIPTION_FIELD;
     noOfSectionsField = NOOFSECTIONS_FIELD;
-    columns = COLUMNS;
 
     sections = [];
 
