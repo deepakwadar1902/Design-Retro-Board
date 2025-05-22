@@ -19,9 +19,8 @@ OR
 If you don't want to do anything once data received then you can user wired property
 
 
-
-Original Controller before Save Board issue
 /*
+
 public with sharing class BoardController {
    
     @AuraEnabled

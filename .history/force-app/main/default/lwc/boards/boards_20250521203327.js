@@ -9,7 +9,7 @@ import NOOFSECTIONS_FIELD from '@salesforce/schema/Board__c.NoOfSections__c';
 import saveBoard from '@salesforce/apex/BoardController.saveBoard';
 import getBoards from '@salesforce/apex/BoardController.getBoards';
 
-import {NavigationMixin} from 'lightning/navigation';
+import {NavigationMixin} from '@lightning/navigation';
 
 const COLUMNS = [
     {label: 'Name', fieldName: 'Name'},
@@ -66,7 +66,6 @@ export default class Boards extends NavigationMixin(LightningElement) {
         }
     }
 
-    /*
     async handleSubmit(event){
         event.preventDefault();
         const fields = {...event.detail.fields};
@@ -81,48 +80,13 @@ export default class Boards extends NavigationMixin(LightningElement) {
                 return;
             }
             let result = await saveBoard({'board': fields, 'sections': sectionList});
-            this.navigateToBoardRecordPage(result);
-            this.popupCloseHandler();
             this.showToast('Data Saved Successfully..');
+            this.popupCloseHandler();
             //setTimeout(() => this.popupCloseHandler(), 500);
+            this.navigateToBoardRecordPage(result);
             console.log('Test 6');
         
-    }*/
-
-        async handleSubmit(event) {
-        event.preventDefault();
-        const fields = { ...event.detail.fields };
-        let sectionControls = this.template.querySelectorAll('[data-section-control]');
-        let sectionList = [];
-
-        for (let control of sectionControls) {
-            sectionList.push({ Name: control.value }); // Correct case-sensitive API name
-        }
-
-        console.log('Submitting Board:', fields);
-        console.log('Submitting Sections:', sectionList);
-
-         
-
-        try {
-            if(!this.validateData(fields, sectionList)){
-                return;
-            }
-            let result = await saveBoard({ board: fields, sections: sectionList });
-            console.log('Board saved successfully:', result);
-            this.navigateToBoardRecordPage(result);
-            this.showToast('Data Saved Successfully.');
-            
-            setTimeout(() => {
-                this.popupCloseHandler();
-                //this.navigateToBoardRecordPage(result);
-            }, 500);
-        } catch (error) {
-            console.error('Error in saveBoard:', error);
-            this.showToast(error.body ? error.body.message : 'Unexpected error occurred.', 'Error', 'error');
-        }
     }
-
 
         validateData(fields, sectionList){
             let sectionCount = parseInt(fields.NoOfSections__c);

@@ -102,20 +102,18 @@ export default class Boards extends NavigationMixin(LightningElement) {
         console.log('Submitting Board:', fields);
         console.log('Submitting Sections:', sectionList);
 
-         
-
-        try {
-            if(!this.validateData(fields, sectionList)){
+         if(!this.validateData(fields, sectionList)){
                 return;
             }
+
+        try {
             let result = await saveBoard({ board: fields, sections: sectionList });
             console.log('Board saved successfully:', result);
-            this.navigateToBoardRecordPage(result);
+
             this.showToast('Data Saved Successfully.');
-            
             setTimeout(() => {
                 this.popupCloseHandler();
-                //this.navigateToBoardRecordPage(result);
+                this.navigateToBoardRecordPage(result);
             }, 500);
         } catch (error) {
             console.error('Error in saveBoard:', error);

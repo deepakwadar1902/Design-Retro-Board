@@ -90,38 +90,35 @@ export default class Boards extends NavigationMixin(LightningElement) {
     }*/
 
         async handleSubmit(event) {
-        event.preventDefault();
-        const fields = { ...event.detail.fields };
-        let sectionControls = this.template.querySelectorAll('[data-section-control]');
-        let sectionList = [];
+    event.preventDefault();
+    const fields = { ...event.detail.fields };
+    let sectionControls = this.template.querySelectorAll('[data-section-control]');
+    let sectionList = [];
 
-        for (let control of sectionControls) {
-            sectionList.push({ Name: control.value }); // Correct case-sensitive API name
-        }
-
-        console.log('Submitting Board:', fields);
-        console.log('Submitting Sections:', sectionList);
-
-         
-
-        try {
-            if(!this.validateData(fields, sectionList)){
-                return;
-            }
-            let result = await saveBoard({ board: fields, sections: sectionList });
-            console.log('Board saved successfully:', result);
-            this.navigateToBoardRecordPage(result);
-            this.showToast('Data Saved Successfully.');
-            
-            setTimeout(() => {
-                this.popupCloseHandler();
-                //this.navigateToBoardRecordPage(result);
-            }, 500);
-        } catch (error) {
-            console.error('Error in saveBoard:', error);
-            this.showToast(error.body ? error.body.message : 'Unexpected error occurred.', 'Error', 'error');
-        }
+    for (let control of sectionControls) {
+        sectionList.push({ name: control.value });
     }
+
+    if (!this.validateData(fields, sectionList)) {
+        return;
+    }
+
+    try {
+        let result = await saveBoard({ board: fields, sections: sectionList });
+        
+        // Show success toast
+        this.showToast('Data Saved Successfully..');
+        
+        // Delay navigation or modal closure to ensure toast is visible
+        setTimeout(() => {
+            this.popupCloseHandler(); // Close modal
+            this.navigateToBoardRecordPage(result); // Navigate to the record
+        }, 500);
+    } catch (error) {
+        console.error('Error saving board:', error);
+        this.showToast('Failed to save data.', 'Error', 'error');
+    }
+}
 
 
         validateData(fields, sectionList){
