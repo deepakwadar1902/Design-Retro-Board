@@ -102,12 +102,11 @@ export default class Boards extends NavigationMixin(LightningElement) {
         console.log('Submitting Board:', fields);
         console.log('Submitting Sections:', sectionList);
 
-         
-
-        try {
-            if(!this.validateData(fields, sectionList)){
+         if(!this.validateData(fields, sectionList)){
                 return;
             }
+
+        try {
             let result = await saveBoard({ board: fields, sections: sectionList });
             console.log('Board saved successfully:', result);
             this.navigateToBoardRecordPage(result);

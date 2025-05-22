@@ -43,14 +43,4 @@ public with sharing class BoardController {
             throw new AuraHandledException('Unexpected error: ' + ex.getMessage());
         }
     }
-
-    @AuraEnabled(cacheable=true)
-    public static List<Board__c> getBoards(){
-        try {
-            List<Board__c> boards = [Select Id, Name, Description__c, NoOfSections__c from Board__c ORDER BY CreatedDate DESC];
-            return boards;
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
 }
